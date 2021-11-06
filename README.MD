@@ -1,9 +1,5 @@
 # Vidmob Calculator
 
-Minimal [Spring Boot](http://projects.spring.io/spring-boot/) sample app.
-
-## Requirements
-
 For building and running the application you need:
 
 - [JDK 11](https://www.oracle.com/java/technologies/downloads/#java11)
