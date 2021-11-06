@@ -26,7 +26,7 @@ import com.vidmob.calculator.service.CalculationService;
 @DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 class CalculationControllerIT {
 
-    private static final String GET_CALCULATION_URL = "/calculator/calculate/{mathProblem}";
+    private static final String GET_CALCULATION_URL = "/calculator/calculate";
 
     @LocalServerPort
     private int port;
@@ -38,9 +38,7 @@ class CalculationControllerIT {
     void success_shouldReturnExpectedValue() {
         when(calculationService.calculate(MATH_PROBLEM)).thenReturn(RESULT);
 
-        given().port(port)
-                .when()
-                .get(GET_CALCULATION_URL, MATH_PROBLEM)
+        given().port(port).when().queryParam("mathProblem", MATH_PROBLEM).get(GET_CALCULATION_URL)
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK.value())
@@ -51,9 +49,7 @@ class CalculationControllerIT {
     void fail_shouldReturnBadRequest() {
         when(calculationService.calculate(MATH_PROBLEM)).thenThrow(new IllegalArgumentException(EXCEPTION_MESSAGE));
 
-        given().port(port)
-                .when()
-                .get(GET_CALCULATION_URL, MATH_PROBLEM)
+        given().port(port).when().queryParam("mathProblem", MATH_PROBLEM).get(GET_CALCULATION_URL)
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
